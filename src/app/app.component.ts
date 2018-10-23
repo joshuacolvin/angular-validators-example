@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'validators-example';
+  form: FormGroup;
+  phoneRequired = false;
+
+  constructor(fb: FormBuilder) {
+    this.form = fb.group({
+      phone: ['', Validators.maxLength(10)]
+    });
+  }
+
+  submitForm(value: any) {
+    // handle submit
+  }
 }
