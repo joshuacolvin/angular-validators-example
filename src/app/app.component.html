@@ -1,13 +1,22 @@
 <div class="container">
   <h1>Phone Form</h1>
+  <div *ngIf="invalid" class="alert alert-danger">Form is invalid. Please fix errors and try again.</div>
   <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
     <div class="form-group">
       <label for=" phone">Phone Number
         <span *ngIf="phoneRequired">*</span></label>
       <input class="form-control" type="text" formControlName="phone">
+
+      <small class="form-text text-danger" *ngIf="form.controls['phone'].hasError('maxlength')">Phone
+        numbers cannot exceed 10 characters</small>
+      <small class="form-text text-danger" *ngIf="form.controls['phone'].hasError('required') && form.controls['phone'].touched">Phone
+        number is required</small>
     </div>
-    <div class="alert alert-danger" *ngIf="form.controls['phone'].hasError('maxlength')">Phone
-      numbers cannot exceed 10 characters</div>
     <button class="btn btn-primary" type="submit">Save</button>
   </form>
+
+  <div class="form-group" style="margin-top: 20px;">
+    <label for="">Phone Required?</label>
+    <input style="margin-left: 10px;" type="checkbox" (change)="updateRequiredStatus($event.target.checked)">
+  </div>
 </div>
